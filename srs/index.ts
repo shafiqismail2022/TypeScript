@@ -49,7 +49,70 @@ console.log(payRollNo)
 function addNumber(x:number,y:number):number{
     return x+y
 }
-console.log(outPut)
+// console.log(outPut)
 function outPut(message:string|number) :void{
-console.log(addNumber(100, 100))
+// console.log(addNumber(100, 100))
 }
+// interface
+interface userInterface{
+    readonly eId:number, // can't  be assigned
+    eName:String,
+    eAge?:number, //optional Argument
+}
+const user1:userInterface={
+    eId:1234,
+    eName:'ShafiQ'
+}
+user1.eName='Yussuf'
+//interface is the same as type but type can be used with primitive and union  
+//interface can be used in function to pass values
+interface MathFunc{(x:number,y:number):number}   
+var add:MathFunc=(x:number,y:number):number=>x+y //uses the interfaces
+var subtract:MathFunc=(x:number,y:number):number=>x-y
+var mult:MathFunc=(x:number,y:number):number=>x*y
+var div:MathFunc=(x:number,y:number):number=>x/y
+console.log(add(10.7,11.4))
+interface EmpInterface{
+    empId:number, // can't  be assigned
+    empName:String,
+    // eAge?:number, //optional Argument 
+    registerId():String
+}
+class Employee implements EmpInterface{ //Must have the same name as the interface variables
+    empId:number 
+    empName:string
+    constructor(id:number,ename:string){
+console.log('an Employee was created')
+this.empId=id,
+this.empName=ename
+    }
+    public register():void{
+        console.log(this.empName+'is registered') //String interpolarion
+    }
+    public registerId():String{
+        return `${this.empId} is registered`
+    }
+}
+class Employee_Rank extends Employee{
+    pos:string
+    constructor(id:number,name:string,position:string){
+        super(id,name)
+        this.pos=position
+    }
+}
+const Employee01=new Employee(123,"Shafiq") 
+const Employee02=new Employee(124,"Mahrez")
+const Employee03=new Employee(125,'Yussuf')
+console.log(Employee03.empName)
+Employee02.register()
+console.log(Employee03.registerId())
+const empstatus=new Employee_Rank(124,'Mahrezz',"dataBase Administrator")
+console.log(empstatus.pos)
+console.log(empstatus.registerId())
+//Generic Allows certain operation of validation such as inserting a string in a number Array
+function getArray<T>(items:T[]):T[]{
+    return new Array().concat(items)
+}
+let numArray=getArray<number>([1,2,3,4,5,6,7,8,9]) //for numbers
+let strArray=getArray<string>(['shafiq','Mahrez','yussuf'])
+strArray.push('Oops')
